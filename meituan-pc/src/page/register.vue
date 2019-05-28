@@ -43,80 +43,80 @@
   </div>
 </template>
 <script>
-// import api from '@/api/index.js'
+import api from '@/api/api.js'
 export default {
-//   data() {
-//     var checkUserName = (rule, value, callback) => {
-//       if (value === "") {
-//         callback(new Error("请输入用户名"));
-//       } else {
-//           console.log(checkUserName)
-//         if (
-//           this.registerForm.userName.length < 4 ||
-//           this.registerForm.userName.length > 16
-//         ) {
-//           callback(new Error("用户名必须为4-16位的字母数字下划线组成"));
-//         } else {
-//              callback();
-//         }
-//       }
-//     };
-//     var validatePass = (rule, value, callback) => {
-//       if (value === "") {
-//         callback(new Error("请输入密码"));
-//       } else {
-//         if (this.registerForm.rePassword !== "") {
-//           this.$refs.registerForm.validateField("rePassword");
-//         }
-//         callback();
-//       }
-//     };
-//     var validatePass2 = (rule, value, callback) => {
-//       if (value === "") {
-//         callback(new Error("请再次输入密码"));
-//       } else if (value !== this.registerForm.password) {
-//         callback(new Error("两次输入密码不一致!"));
-//       } else {
-//         callback();
-//       }
-//     };
-//     return {
-//       registerForm: {
-//         userName: "",
-//         password: "",
-//         rePassword: ""
-//       },
-//       rules: {
-//         password: [{ validator: validatePass, trigger: "blur" }],
-//         rePassword: [{ validator: validatePass2, trigger: "blur" }],
-//         userName: [{ validator: checkUserName, trigger: "blur", type: "string" }]
-//       }
-//     };
-//   },
-//   methods: {
-//     submitForm(formName) {
-//          this.$refs[formName].validate((valid) => {
-//           if (valid) {
-//               console.log(this.registerForm)
-//               api.register({
-//                   params: this.registerForm
-//               }).then((res) => {
-//                   console.log(res);
-//                   if (res.data.status == 'success') {
-//                       this.$message({
-//                         message: res.data.msg,
-//                         type: 'success'
-//                     });
-//                       this.$router.push({name: 'login'})
-//                   }
-//               })
-//           } else {
-//             console.log('error submit!!');
-//             return false;
-//           }
-//         });
-//     }
-//   }
+  data() {
+    var checkUserName = (rule, value, callback) => {
+      if (value === "") {
+        callback(new Error("请输入用户名"));
+      } else {
+          console.log(checkUserName)
+        if (
+          this.registerForm.userName.length < 4 ||
+          this.registerForm.userName.length > 16
+        ) {
+          callback(new Error("用户名必须为4-16位的字母数字下划线组成"));
+        } else {
+             callback();
+        }
+      }
+    };
+    var validatePass = (rule, value, callback) => {
+      if (value === "") {
+        callback(new Error("请输入密码"));
+      } else {
+        if (this.registerForm.rePassword !== "") {
+          this.$refs.registerForm.validateField("rePassword");
+        }
+        callback();
+      }
+    };
+    var validatePass2 = (rule, value, callback) => {
+      if (value === "") {
+        callback(new Error("请再次输入密码"));
+      } else if (value !== this.registerForm.password) {
+        callback(new Error("两次输入密码不一致!"));
+      } else {
+        callback();
+      }
+    };
+    return {
+      registerForm: {
+        userName: "",
+        password: "",
+        rePassword: ""
+      },
+      rules: {
+        password: [{ validator: validatePass, trigger: "blur" }],
+        rePassword: [{ validator: validatePass2, trigger: "blur" }],
+        userName: [{ validator: checkUserName, trigger: "blur", type: "string" }]
+      }
+    };
+  },
+  methods: {
+    submitForm(formName) {
+         this.$refs[formName].validate((valid) => {
+          if (valid) {
+              console.log(this.registerForm)
+              api.register({
+                  params: this.registerForm
+              }).then((res) => {
+                  console.log(res);
+                  if (res.data.status == 'success') {
+                      this.$message({
+                        message: res.data.msg,
+                        type: 'success'
+                    });
+                      this.$router.push({name: 'login'})
+                  }
+              })
+          } else {
+            console.log('error submit!!');
+            return false;
+          }
+        });
+    }
+  }
 };
 </script>
 <style lang="scss">
