@@ -1,0 +1,179 @@
+<template>
+    <div :class="['choose-wrap', disabled?'disbaled-wrap':'']" @click="showWrapper" v-document-click="documentClick" >
+        <div :class="['choose', chooseClass+'-choose']">
+            <span>{{value}}</span>
+            <i class="el-icon-caret-bottom"></i>
+            <div :class="{'mt-content': true, 'active': showWrapperActive}">
+                <h2>{{title}}</h2>
+                <div class="wrapper">
+                    <div class="col" v-for="(col, index) in colList" :key="index">
+                        <span :class="{'mt-item': true, 'active': item == value}" v-for="(item, index) in col" :key="index" @click="changeValue(item)">{{item.name}}</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</template>
+<script>
+export default {
+    data() {
+        return {
+        }
+    },
+    props: [
+        "list",
+        "title",
+        "value",
+        "showWrapperActive",
+        "disabled",
+        "chooseClass"
+    ],
+    computed: {
+        colList: function () {
+            let col = Math.ceil(this.list.length / 12);
+            let result = [];
+            for (var i = 0; i < col; i++) {
+                result.push(this.list.slice(i * 12, i * 12 + 12));
+            }
+            console.log('===', result);
+            return result;
+        }
+    },
+    methods: {
+        showWrapper(e) {
+            if (this.disabled) {
+                return false;
+            }
+            e.stopPropagation();
+            // this.showWrapperActive = true;
+            this.$emit('change_active', true);
+        },
+        documentClick() {
+            this.$emit('change_active', false);
+            console.log('document-click');
+        },
+        changeValue(item) {
+            this.$emit('change', item);
+        }
+    }
+}
+</script>
+<style lang="scss">
+    .choose-wrap {
+    display: inline-block;
+    >.choose{
+        cursor: pointer;
+        border-radius: 4px;
+        border: 1px solid #E5E5E5;
+        margin: 0 10px 0 20px;
+        padding: 10px 0 10px 10px;
+        vertical-align: middle;
+        display: inline-block;
+        width: 150px;
+        height: 40px;
+        position: relative;
+        font-size: 14px;
+        color: #666;
+        box-sizing: border-box;
+        i {
+          color: #666;
+          height: 10px;
+          position: absolute;
+          right: 4px;
+          top: 0;
+          bottom: 0;
+          margin-top: auto;
+          margin-bottom: auto;
+        }
+    }
+    .choose {
+      .mt-content {
+          h2 {
+            font-size: 16px;
+            color: #CCC;
+            margin-bottom: 11px;
+          }
+          display: none;
+          position: absolute;
+          cursor: default;
+          top: 45px;
+          left: 0;
+          min-width: 265px;
+          height: 375px;
+          padding: 20px 0 20px 15px;
+          box-sizing: border-box;
+          background-color: #fff;
+          border: 1px solid #E5E5E5;
+          box-shadow: 0 3px 5px 0 rgba(0,0,0,.1);
+          border-radius: 4px;
+          z-index: 1;
+          &.active {
+            display: block;
+          }
+          &::before {
+              content: "";
+              left: 26px;
+              border-left: 6px solid transparent;
+              border-right: 6px solid transparent;
+              border-top: 0;
+              position: absolute;
+              top: -7px;
+              border-bottom: 6px solid #E5E5E5;
+          }
+          .wrapper {
+            &::after{
+              content: " ";
+              visibility: hidden;
+              display: block;
+              height: 0;
+              clear: both;
+            }
+            .col {
+              float: left;
+               .mt-item {
+                cursor: pointer;
+                font-size: 12px;
+                color: #666;
+                display: table;
+                box-sizing: border-box;
+                min-width: 40px;
+                height: 20px;
+                padding: 1px 8px;
+                margin: 6px 38px 6px 0;
+                &.active {
+                    background: #13D1BE;
+                    border-radius: 10px;
+                    color: #fff;
+                }
+            }
+            }
+        }
+      }
+    }
+    .city-choose {
+      .mt-content {
+        display: none;
+        position: absolute;
+        cursor: default;
+        top: 45px;
+        left: 0;
+        min-width: 665px;
+        height: 375px;
+        padding: 20px 0 20px 15px;
+        box-sizing: border-box;
+        background-color: #fff;
+        border: 1px solid #E5E5E5;
+        box-shadow: 0 3px 5px 0 rgba(0,0,0,.1);
+        border-radius: 4px;
+      }
+    }
+  }
+    .disbaled-wrap {
+        cursor: not-allowed;
+    }
+    .choose-wrap.disbaled-wrap > .choose {
+        cursor: not-allowed;
+    }
+</style>
+
+
