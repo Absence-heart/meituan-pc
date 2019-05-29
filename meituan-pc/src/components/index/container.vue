@@ -24,7 +24,7 @@
               <span class="old-price">门市价¥{{item.old_price}}</span>
               <span class="sold bottom-right-info">{{item.address}}</span>
             </div>
-            <div class="price-info" v-else-if="!item.rentNum">
+            <div class="price-info" v-else-if="item.rentNum">
                 <span class="current-price-wrapper">
                     <span class="price-symbol numfont">¥</span>
                     <span class="current-price numfont">抢光了</span>
@@ -198,13 +198,14 @@ export default {
               height: 27px;
               overflow: hidden;
               margin-bottom: 10px;
+              display: inline-block;
               .price-symbol {
                   font-size: 14px;
                   color: #BE9E4D;
                   font-weight: 500;
               }
               .current-price {
-                  font-size: 22px;
+                  font-size: 12px;
                   color: #BE9E4D;
                   margin-right: 6px;
                   letter-spacing: -.8px;
